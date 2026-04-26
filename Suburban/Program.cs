@@ -28,20 +28,28 @@ builder.Services.AddAuthentication("Bearer")
     {
         var jwt = builder.Configuration.GetSection("Jwt");
 
-        options.TokenValidationParameters = new TokenValidationParameters
+        options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-
-            ValidIssuer = jwt["Issuer"],
-            ValidAudience = jwt["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwt["Key"]!)
-            )
+            OnMessageReceived = context =>
+            {
+                // Read token from cookie instead of header
+                context.Token = context.Request.Cookies["jwt"];
+                return Task.CompletedTask;
+            }
         };
     });
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -56,6 +64,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularApp");
 
 app.UseAuthentication();
 

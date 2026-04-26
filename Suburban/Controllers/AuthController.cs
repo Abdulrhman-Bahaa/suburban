@@ -25,7 +25,18 @@ public class AuthController : ControllerBase
                 Email = dto.Email,
                 Password = dto.Password
             });
-            return Ok(new { Token = token });
+
+            // Set token in HttpOnly cookie
+            Response.Cookies.Append("jwt", token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddHours(1)
+            });
+
+
+            return Ok(new { Message = "Login successful" });
         }
         catch (InvalidOperationException ex)
         {
