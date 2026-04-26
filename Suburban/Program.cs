@@ -6,6 +6,7 @@ using Suburban.Services;
 using Suburban.Services.Interfaces;
 using Suburban.Repositories;
 using Suburban.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,20 +25,33 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", options =>
-    {
-        var jwt = builder.Configuration.GetSection("Jwt");
+.AddJwtBearer("Bearer", options =>
+{
+    var jwt = builder.Configuration.GetSection("Jwt");
 
-        options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = jwt["Issuer"],
+        ValidAudience = jwt["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(jwt["Key"]))
+    };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
         {
-            OnMessageReceived = context =>
-            {
-                // Read token from cookie instead of header
-                context.Token = context.Request.Cookies["jwt"];
-                return Task.CompletedTask;
-            }
-        };
-    });
+            // Read JWT from HttpOnly cookie
+            context.Token = context.Request.Cookies["jwt"];
+            return Task.CompletedTask;
+        }
+    };
+});
 
 
 builder.Services.AddCors(options =>
@@ -47,7 +61,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:4200")
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials();
         });
 });
 
