@@ -17,33 +17,6 @@ class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public async Task<UserDto> CreateUserAsync(CreateUserCommand command)
-    {
-
-        var user = await _userRepository.GetByEmailAsync(command.Email);
-        if (user != null)
-        {
-            throw new InvalidOperationException("User with this email already exists.");
-        }
-
-        user = new User
-        {
-            Id = 0, // Will be set by the database
-            Name = command.Name,
-            Email = command.Email,
-            PasswordHash = Argon2.Hash(command.Password)
-        };
-
-        var createdUser = await _userRepository.AddAsync(user);
-
-        return new UserDto
-        {
-            Id = createdUser.Id,
-            Name = createdUser.Name,
-            Email = createdUser.Email
-        };
-    }
-
     public async Task<UserDto> GetUserByIdAsync(string id)
     {
         var user = await _userRepository.GetByIdAsync(int.Parse(id));
