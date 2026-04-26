@@ -17,27 +17,6 @@ public class UsersController : ControllerBase
         _userService = userService;
     }
 
-    [HttpPost]
-    public async Task<ActionResult<UserDto>> CreateUser(CreateUserDto dto)
-    {
-        try
-        {
-            var command = new CreateUserCommand
-            {
-                Name = dto.Name,
-                Email = dto.Email,
-                Password = dto.Password
-            };
-
-            var user = await _userService.CreateUserAsync(command);
-            return Ok(user);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return Conflict(new { message = ex.Message });
-        }
-    }
-
     [Authorize]
     [HttpGet("me")]
     public async Task<UserDto> Me()

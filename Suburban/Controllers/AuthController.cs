@@ -14,6 +14,26 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+    [HttpPost("register")]
+    public async Task<IActionResult> RegisterAsync(CreateUserDto dto)
+    {
+        try
+        {
+            var command = new Services.Commands.CreateUserCommand
+            {
+                Name = dto.Name,
+                Email = dto.Email,
+                Password = dto.Password
+            };
+
+            await _authService.RegisterAsync(command);
+            return Ok(new { Message = "User registered successfully" });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(new { Message = ex.Message });
+        }
+    }
 
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(LoginDto dto)
@@ -25,7 +45,18 @@ public class AuthController : ControllerBase
                 Email = dto.Email,
                 Password = dto.Password
             });
-            return Ok(new { Token = token });
+
+            // Set token in HttpOnly cookie
+            Response.Cookies.Append("jwt", token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddHours(1)
+            });
+
+
+            return Ok(new { Message = "Login successful" });
         }
         catch (InvalidOperationException ex)
         {

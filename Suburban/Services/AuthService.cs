@@ -2,6 +2,7 @@ using Isopoh.Cryptography.Argon2;
 using Suburban.Services.Commands;
 using Suburban.Repositories.Interfaces;
 using Suburban.Services.Interfaces;
+using Suburban.Models;
 
 namespace Suburban.Services;
 
@@ -15,6 +16,28 @@ public class AuthService : IAuthService
     {
         _userRepository = userRepository;
         _jwtService = jwtService;
+    }
+
+    public async Task<string> RegisterAsync(CreateUserCommand command)
+    {
+
+        var user = await _userRepository.GetByEmailAsync(command.Email);
+        if (user != null)
+        {
+            throw new InvalidOperationException("User with this email already exists.");
+        }
+
+        user = new User
+        {
+            Id = 0, // Will be set by the database
+            Name = command.Name,
+            Email = command.Email,
+            PasswordHash = Argon2.Hash(command.Password)
+        };
+
+        var createdUser = await _userRepository.AddAsync(user);
+
+        return createdUser.Id.ToString(); // Return user ID or any other relevant information
     }
 
     public async Task<string> LoginAsync(LoginCommand command)
