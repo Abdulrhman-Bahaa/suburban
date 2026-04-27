@@ -1,8 +1,8 @@
-namespace Suburban.Controllers;
-
 using Microsoft.AspNetCore.Mvc;
 using Suburban.DTOs;
 using Suburban.Services.Interfaces;
+
+namespace Suburban.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

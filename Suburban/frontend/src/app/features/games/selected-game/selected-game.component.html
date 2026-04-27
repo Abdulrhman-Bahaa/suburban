@@ -1,0 +1,29 @@
+@if ((game$ | async); as game) {
+<!-- HERO SECTION -->
+<div class="hero" [style.backgroundImage]="'url(' + game.coverImageUrl + ')'">
+    <div class="overlay">
+        <h1 class="title">{{ game.title }}</h1>
+
+        <div class="meta">
+            <span>{{ game.genre }}</span>
+            <span>•</span>
+            <span>{{ game.releaseDate | date:'longDate' }}</span>
+            <span>•</span>
+            <span>Rating: {{ game.rating }}/10</span>
+        </div>
+    </div>
+</div>
+
+<!-- CONTENT SECTION -->
+<div class="content">
+
+    <h2>About the Game</h2>
+    <p class="description">
+        {{ game.description }}
+    </p>
+
+</div>
+}
+@else {
+<p>Loading game details...</p>
+}
