@@ -1,0 +1,52 @@
+.game-page {
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+/* HERO */
+.hero {
+    height: 70vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+.overlay {
+    width: 100%;
+    padding: 40px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+}
+
+.title {
+    font-size: 48px;
+    margin: 0;
+}
+
+.meta {
+    margin-top: 10px;
+    opacity: 0.9;
+    display: flex;
+    gap: 10px;
+}
+
+/* CONTENT */
+.content {
+    padding: 40px;
+    background: #111;
+    min-height: 30vh;
+}
+
+.description {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 900px;
+}
+
+/* LOADING */
+.loading {
+    padding: 50px;
+    text-align: center;
+    font-size: 20px;
+}

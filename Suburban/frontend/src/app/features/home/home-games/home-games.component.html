@@ -1,0 +1,15 @@
+<div class="search-container">
+    <app-search (gamesChanged)="games$ = $event"></app-search>
+</div>
+
+<div class="games-container">
+    @for (game of games$ | async; track game.id) {
+    <div (click)="onGameClick(game)" class="game-card">
+        <img [src]="game.coverImageUrl" alt="{{ game.title }}" class="game-cover">
+
+        <h3 class="game-title">{{ game.title }}</h3>
+
+        <p class="game-description">{{ game.description }}</p>
+    </div>
+    }
+</div>
