@@ -10,12 +10,21 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform opacity 0.2s ease, box-shadow 0.2s ease;
+    /* transform: translateY(-44px) scale(1.02); */
+    opacity: 1;
+    transition: opacity 0.3s ease;
 
 }
 
 .game-card:hover {
     transform: translateY(44px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* programmatic animation class */
+.game-card.animate {
+    opacity: 0;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
