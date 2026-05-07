@@ -1,12 +1,28 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email">
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      placeholder="Enter email"
+      formControlName="email"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      placeholder="Password"
+      formControlName="password"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.jpg" alt="Login Image" class="login-image">
+
+<p>
+  Don't have an account?
+  <a routerLink="/auth/register">Register here</a>
+</p>
