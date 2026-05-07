@@ -1,0 +1,23 @@
+
+/* Header Styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #f8f9fa;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.header .profile-button {
+  display: flex;
+  align-items: right;
+}
