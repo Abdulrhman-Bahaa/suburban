@@ -4,7 +4,7 @@
 
 <div class="games-container">
     @for (game of games$ | async; track game.id) {
-    <div (click)="onGameClick(game)" class="game-card">
+    <div (click)="onGameClick(game)" class="game-card" [class.animate]="activeGames.has(game.id)">
         <img [src]="game.coverImageUrl" alt="{{ game.title }}" class="game-cover">
 
         <h3 class="game-title">{{ game.title }}</h3>
