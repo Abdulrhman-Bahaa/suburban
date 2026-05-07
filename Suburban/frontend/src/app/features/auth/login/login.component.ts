@@ -3,34 +3,40 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { AuthService } from '../auth.service';
 import { LoginRequest } from '../auth.models';
 import { RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-    selector: 'app-auth-login',
-    standalone: true,
-    imports: [ReactiveFormsModule, RouterModule],
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  selector: 'app-auth-login',
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-    loginForm: FormGroup;
+  loginForm: FormGroup;
 
-    constructor(private fb: FormBuilder, private authService: AuthService) {
-        this.loginForm = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(6)]]
-        });
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
+
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      const email = this.loginForm.get('email')?.value;
+      const password = this.loginForm.get('password')?.value;
+
+      const loginRequest: LoginRequest = { email, password };
+
+      this.authService.login(loginRequest);
+    } else {
+      console.log('Form is invalid');
     }
-
-    onSubmit(): void {
-        if (this.loginForm.valid) {
-            const email = this.loginForm.get('email')?.value;
-            const password = this.loginForm.get('password')?.value;
-
-            const loginRequest: LoginRequest = { email, password };
-
-            this.authService.login(loginRequest);
-        } else {
-            console.log('Form is invalid');
-        }
-    }
+  }
 }
