@@ -1,15 +1,37 @@
-<div class="search-container">
-    <app-search (gamesChanged)="games$ = $event"></app-search>
-</div>
+<section
+  class="hero"
+  [style.background-image]="
+    'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + currentHero.image + ')'
+  "
+>
+  <div class="hero-content">
+    <h1>{{ currentHero.title }}</h1>
+    <p>{{ currentHero.subtitle }}</p>
+    <button class="btn-cta">{{ currentHero.buttonText }}</button>
+  </div>
 
-<div class="games-container">
-    @for (game of games$ | async; track game.id) {
-    <div (click)="onGameClick(game)" class="game-card" [class.animate]="activeGames.has(game.id)">
-        <img [src]="game.coverImageUrl" alt="{{ game.title }}" class="game-cover">
-
-        <h3 class="game-title">{{ game.title }}</h3>
-
-        <p class="game-description">{{ game.description }}</p>
-    </div>
+  <!-- Bullet Indicators -->
+  <div class="hero-bullets">
+    @for (hero of heroSlides; track $index) {
+      <div class="bullet" [class.active]="hero === currentHero" (click)="setHero($index)"></div>
     }
+  </div>
+</section>
+
+<div class="game-grid">
+  @for (game of games$ | async; track game.id) {
+    <div class="game-card" (click)="onGameClick(game)">
+      <!-- <img [src]="game.coverImageUrl" alt="{{ game.title }}" class="game-cover" /> -->
+      <div class="game-thumb">
+        <img [src]="game.coverImageUrl" alt="{{ game.title }}" class="game-cover" />
+      </div>
+      <div class="game-info">
+        <span class="game-title">{{ game.title }}</span>
+        <div class="game-meta">
+          <span class="price">$29.99</span>
+          <span class="tag">PC</span>
+        </div>
+      </div>
+    </div>
+  }
 </div>
