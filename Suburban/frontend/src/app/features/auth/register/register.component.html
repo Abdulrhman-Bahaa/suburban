@@ -1,48 +1,37 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="name">Name</label>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+
+    <input matInput type="text" placeholder="Enter name" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email address</mat-label>
+
+    <input matInput type="email" placeholder="Enter email" formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+
+    <input matInput type="password" placeholder="Password" formControlName="password" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Confirm Password</mat-label>
+
     <input
-      type="text"
-      class="form-control"
-      id="name"
-      placeholder="Enter name"
-      formControlName="name"
-    />
-  </div>
-  <div class="form-group">
-    <label for="email">Email address</label>
-    <input
-      type="email"
-      class="form-control"
-      id="email"
-      placeholder="Enter email"
-      formControlName="email"
-    />
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input
+      matInput
       type="password"
-      class="form-control"
-      id="password"
-      placeholder="Password"
-      formControlName="password"
-    />
-  </div>
-  <div class="form-group">
-    <label for="confirmPassword">Confirm Password</label>
-    <input
-      type="password"
-      class="form-control"
-      id="confirmPassword"
       placeholder="Confirm Password"
       formControlName="confirmPassword"
     />
-  </div>
-  <button type="submit" class="btn btn-primary">Register</button>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Register</button>
 </form>
 
-<p>
+<p class="login-text">
   Already have an account?
   <a routerLink="/auth/login">Login here</a>
 </p>
