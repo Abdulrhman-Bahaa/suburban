@@ -1,28 +1,27 @@
-<header>
-  <mat-toolbar color="primary">
-    <a class="logo" routerLink="/">
-      <span>S</span>
-      <span>U</span>
-      <span>B</span>
-      <span>U</span>
-      <span>R</span>
-      <span>B</span>
-      <span>A</span>
-      <span>N</span>
-    </a>
+<header class="navbar">
+  <div class="logo-container">
+    <div class="logo-text" routerLink="/">SUBURBAN</div>
+  </div>
 
-    <button mat-button routerLink="/">Home</button>
-    <button mat-button routerLink="/about">About</button>
-    <button mat-button routerLink="/contact">Contact</button>
+  <nav class="nav-links">
+    <a routerLink="/store" routerLinkActive="active">Store</a>
+    <a routerLink="/library" routerLinkActive="active">Library</a>
+    <a routerLink="/categories" routerLinkActive="active">Categories</a>
+    <a routerLink="/support" routerLinkActive="active">Support</a>
+  </nav>
 
-    <span class="spacer"></span>
+  <div class="user-tools">
+    <div class="search-wrapper">
+      <input type="text" class="search-bar" placeholder="Search games..." />
+    </div>
 
-    <a class="login-button" mat-icon-button routerLink="/auth/login">
-      <mat-icon>login</mat-icon>
-    </a>
+    <button class="icon-btn" aria-label="Shopping Cart">
+      <span class="cart-icon">🛒</span>
+    </button>
 
-    <a class="profile-button" mat-icon-button routerLink="/profile">
-      <mat-icon>account_circle</mat-icon>
-    </a>
-  </mat-toolbar>
+    <div class="user-profile">
+      <!-- Placeholder for user avatar -->
+      <div class="avatar"></div>
+    </div>
+  </div>
 </header>
