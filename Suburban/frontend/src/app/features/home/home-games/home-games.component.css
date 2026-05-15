@@ -48,6 +48,13 @@
   margin-top: 15px;
 }
 
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 /* Game Grid */
 .game-grid {
   display: grid;
@@ -61,6 +68,7 @@
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s;
+  margin-bottom: 20px;
 }
 
 .game-card:hover {

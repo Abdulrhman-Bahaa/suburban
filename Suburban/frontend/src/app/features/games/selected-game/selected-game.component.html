@@ -1,29 +1,51 @@
-@if ((game$ | async); as game) {
-<!-- HERO SECTION -->
-<div class="hero" [style.backgroundImage]="'url(' + game.coverImageUrl + ')'">
-    <div class="overlay">
-        <h1 class="title">{{ game.title }}</h1>
+@if (game$ | async; as game) {
+  <section class="game-details">
+    <!-- HERO -->
+    <div class="hero" [style.background-image]="'url(' + game.coverImageUrl + ')'">
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <div class="badge">
+          {{ game.genre }}
+        </div>
+
+        <h1 class="title">
+          {{ game.title }}
+        </h1>
 
         <div class="meta">
-            <span>{{ game.genre }}</span>
-            <span>•</span>
-            <span>{{ game.releaseDate | date:'longDate' }}</span>
-            <span>•</span>
-            <span>Rating: {{ game.rating }}/10</span>
+          <div class="meta-item">
+            <span class="label">Release</span>
+            <span>{{ game.releaseDate | date: 'longDate' }}</span>
+          </div>
+
+          <div class="meta-item">
+            <span class="label">Rating</span>
+            <span class="rating"> ★ {{ game.rating }}/10 </span>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- CONTENT SECTION -->
-<div class="content">
+    <!-- MAIN CONTENT -->
+    <div class="content-container">
+      <div class="content-card">
+        <h2>About the Game</h2>
 
-    <h2>About the Game</h2>
-    <p class="description">
-        {{ game.description }}
-    </p>
+        <p class="description">
+          {{ game.description }}
+        </p>
+      </div>
 
-</div>
-}
-@else {
-<p>Loading game details...</p>
+      <!-- ACTION BUTTON -->
+      <div class="actions">
+        <button class="btn-primary" (click)="(game)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+} @else {
+  <div class="loading-container">
+    <div class="loader"></div>
+    <p>Loading game details...</p>
+  </div>
 }
