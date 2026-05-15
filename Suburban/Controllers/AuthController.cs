@@ -64,6 +64,7 @@ public class AuthController : ControllerBase
         }
     }
 
+    [HttpPost("logout")]
     public async Task<IActionResult> LogoutAsync()
     {
         // Clear the JWT cookie

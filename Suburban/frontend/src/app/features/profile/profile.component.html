@@ -2,18 +2,44 @@
   <h1>Your Profile</h1>
   <p>Manage your account details, preferences, and order history from here.</p>
 
-  <div class="profile-card">
-    <div class="profile-meta">
-      <span class="profile-avatar">👤</span>
-      <div>
-        <h2>Guest Player</h2>
-        <p>Not signed in yet. Sign in to access saved carts and purchase history.</p>
+  <ng-container *ngIf="user$ | async as user; else loading">
+    <div class="profile-card">
+      <div class="profile-meta">
+        <span class="profile-avatar">👤</span>
+        <div>
+          <h2>{{ user.name }}</h2>
+          <p>{{ user.email }}</p>
+        </div>
+      </div>
+
+      <div class="profile-details">
+        <div class="detail-row">
+          <span>ID</span>
+          <strong>{{ user.id }}</strong>
+        </div>
+        <div class="detail-row">
+          <span>Name</span>
+          <strong>{{ user.name }}</strong>
+        </div>
+        <div class="detail-row">
+          <span>Email</span>
+          <strong>{{ user.email }}</strong>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button disabled>Update profile</button>
+        <button disabled>View orders</button>
+        <button type="button" (click)="onLogout()" [disabled]="isLoggingOut">
+          {{ isLoggingOut ? 'Logging out…' : 'Logout' }}
+        </button>
       </div>
     </div>
+  </ng-container>
 
-    <div class="profile-actions">
-      <button disabled>Update profile</button>
-      <button disabled>View orders</button>
+  <ng-template #loading>
+    <div class="profile-card loading-card">
+      <p>Loading profile…</p>
     </div>
-  </div>
+  </ng-template>
 </section>
