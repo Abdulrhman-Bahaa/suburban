@@ -18,10 +18,55 @@
   </div>
 </section>
 
+<div class="section-header">
+  <h2>Popular Steam Games</h2>
+</div>
+
 <div class="game-grid">
-  @for (game of games$ | async; track game.id) {
+  @for (game of games$ | async | slice: 0 : 6; track game.id) {
     <div class="game-card" (click)="onGameClick(game)">
-      <!-- <img [src]="game.coverImageUrl" alt="{{ game.title }}" class="game-cover" /> -->
+      <div class="game-thumb">
+        <img [src]="game.coverImageUrl" alt="{{ game.title }}" class="game-cover" />
+      </div>
+      <div class="game-info">
+        <span class="game-title">{{ game.title }}</span>
+        <div class="game-meta">
+          <span class="price">$29.99</span>
+          <span class="tag">PC</span>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+<div class="section-header">
+  <h2>Popular PlayStation Games</h2>
+</div>
+
+<div class="game-grid">
+  @for (game of games$ | async | slice: 6 : 12; track game.id) {
+    <div class="game-card" (click)="onGameClick(game)">
+      <div class="game-thumb">
+        <img [src]="game.coverImageUrl" alt="{{ game.title }}" class="game-cover" />
+      </div>
+      <div class="game-info">
+        <span class="game-title">{{ game.title }}</span>
+        <div class="game-meta">
+          <span class="price">$29.99</span>
+          <span class="tag">PS5</span>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+<div class="section-header">
+  <h2>Popular Steam Games</h2>
+</div>
+
+<div class="game-grid">
+  @for (game of games$ | async | slice: 12 : 18; track game.id) {
+    <div class="game-card" (click)="onGameClick(game)">
       <div class="game-thumb">
         <img [src]="game.coverImageUrl" alt="{{ game.title }}" class="game-cover" />
       </div>

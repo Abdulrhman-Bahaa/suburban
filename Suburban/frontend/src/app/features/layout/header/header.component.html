@@ -8,6 +8,8 @@
     <a routerLink="/library" routerLinkActive="active">Library</a>
     <a routerLink="/categories" routerLinkActive="active">Categories</a>
     <a routerLink="/support" routerLinkActive="active">Support</a>
+    <a routerLink="/cart" routerLinkActive="active">Cart</a>
+    <a routerLink="/profile" routerLinkActive="active">Profile</a>
   </nav>
 
   <div class="user-tools">
@@ -15,13 +17,12 @@
       <input type="text" class="search-bar" placeholder="Search games..." />
     </div>
 
-    <button class="icon-btn" aria-label="Shopping Cart">
+    <button class="icon-btn" routerLink="/cart" aria-label="Shopping Cart">
       <span class="cart-icon">🛒</span>
     </button>
 
-    <div class="user-profile">
-      <!-- Placeholder for user avatar -->
+    <a class="user-profile" routerLink="/profile" aria-label="User Profile">
       <div class="avatar"></div>
-    </div>
+    </a>
   </div>
 </header>

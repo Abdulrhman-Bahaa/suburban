@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { Game, GetGamesRequest, GetGamesResponse } from '../../games/games.models';
 import { GamesService } from '../../games/games.service';
 import { Observable, of, startWith, Subject, scan, switchMap, BehaviorSubject } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, SlicePipe } from '@angular/common';
 import { SearchComponent } from '../../games/search/search.component';
 import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-home-games',
   standalone: true,
-  imports: [AsyncPipe, SearchComponent],
+  imports: [AsyncPipe, SlicePipe, SearchComponent],
   templateUrl: './home-games.component.html',
   styleUrls: ['./home-games.component.css'],
 })
