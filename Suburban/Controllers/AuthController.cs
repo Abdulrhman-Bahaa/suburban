@@ -63,4 +63,11 @@ public class AuthController : ControllerBase
             return Unauthorized(new { Message = ex.Message });
         }
     }
+
+    public async Task<IActionResult> LogoutAsync()
+    {
+        // Clear the JWT cookie
+        Response.Cookies.Delete("jwt");
+        return Ok(new { Message = "Logout successful" });
+    }
 }
